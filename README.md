@@ -2,6 +2,8 @@
 
 ## Introduction
 
+The ability to analyze TCP traffic is a crucial skill in computer networking, as it allows us to understand how applications communicate over the network, identify performance issues and security threats, and optimize network configurations. The TCP stream analyzer that we will be introducing in this article is a key tool for achieving these objectives, as it will enable you to extract important information from TCP packets, such as sequence and acknowledgement numbers, payload data, and statistics. By the end of this assignment, you should have a solid understanding of how TCP stream analysis works. In this time of assigment, you should implement a TCP stream analyzer using `Python` and `Scapy`.
+
 ## Environment Setup
 
 In this assignment, you are suggested to use `Python 3.11`, as we wil test your code in this environment. And you should install few libraries. With anaconda, you can do this by this command in shell
