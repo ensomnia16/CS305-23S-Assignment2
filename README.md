@@ -114,7 +114,7 @@ Use the packet analyzer programmed by you to demonstrate some behaviors of TCP s
 3. Slow Start
 4. So on.
 
-The demonstration methods are suggested to include at least one figure automatically plotted by `matplotlib` or other plotting libraries. Note that you are **not allowed** to submit a figure plotted by **hand-making data**, like plotted by `excel` or any other seemly tools. You have to **specificate** the code clip you used to plot. You must **clearly indicate** which part of the figure tells which TCP behavior. **Note** that you do not need to demonstrate all behaviours, only one or two of them are sufficient. Also, spending too much time on making your plots fancy may not help you gain more grades. A simple example is provided like
+The demonstration methods are suggested to include at least one figure automatically plotted by `matplotlib` or other plotting libraries. Note that you are **not allowed** to submit a figure plotted by **hand-making data**, like plotted by `excel` or any other alike tools. You have to **specificate**(submit) the code clip you used to plot in your report. You must **clearly indicate** which part of the figure tells which TCP behavior. **Note** that you do not need to demonstrate all behaviours, one or two of them are sufficient. Also, spending too much time on making your plots fancy may not help you gain more grades. A simple example is provided like
 
 ![image-20230417180126723](README.assets/image-20230417180126723-1725688.png)
 
