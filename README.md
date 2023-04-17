@@ -6,7 +6,7 @@ The ability to analyze TCP traffic is a crucial skill in computer networking, as
 
 ## Environment Setup
 
-In this assignment, you are suggested to use `Python 3.11`, as we wil test your code in this environment. And you should install few libraries. With anaconda, you can do this by this command in shell
+In this assignment, you are suggested to use `Python 3.11`, as we will test your code in this environment. And you should install few libraries. With anaconda, you can do this by this command in shell
 
 ```zsh
 conda create -y -n PA2 python=3.11 && conda activate PA2 && pip install -r requirements.txt
@@ -29,7 +29,7 @@ PACKET_INFO.txt
 requirements.txt
 ```
 
-Otherwise you can manually install each library by `pip`.
+Otherwise you can manually install each library by `pip`. Required libraries are listed in `requirements.txt`.
 
 ## Requirements
 
@@ -37,9 +37,9 @@ Otherwise you can manually install each library by `pip`.
 
 In this task, you should implement a simple TCP packet analyzer, which can be used to do:
 
-- (5pts)
+#### TCP Connection Analyzer (5pts)
 
-  Extract all TCP connections in a given `pcap` file, print them and save them into a `txt` file in the format of
+Extract all TCP connections in a given `pcap` file, print them and save them into a `txt` file in the format of
 
 ```
 /*Src. IP*/:/*Src. Port*/ -> /*Dst. IP*/:/*Dst. Port*/
@@ -47,10 +47,11 @@ In this task, you should implement a simple TCP packet analyzer, which can be us
 
 Note that you only need to implement `IPv4/TCP` in this part. Make sure to output connection in time order. If you use the code skeleton, it should be easy to do.
 
-- (45pts)
-  1. Tell which packet in the `pcap` file belongs to which TCP stream, save them into a `txt` file, each packet occupied each line. You should tell the number sequence of the packet. You should also tell which packet belongs to the client (sent by the client), and which belongs to the server.
-  2. And you should calculate relative `ACK` and `SEQ` nums, correctly. You must have learnt the definitions of relative `ACK` and `SEQ`, so detailed information about them are omitted for brevity.
-  3. You should also label flags in `TCP` packets.
+#### TCP Stream Analyzer (45pts)
+
+1. Tell which packet in the `pcap` file belongs to which TCP stream, save them into a `txt` file, each packet occupied each line. You should tell the number sequence of the packet. You should also tell which packet belongs to the client (sent by the client), and which belongs to the server.
+2. And you should calculate relative `ACK` and `SEQ` nums, correctly. You must have learnt the definitions of relative `ACK` and `SEQ`, so detailed information about them are omitted for brevity.
+3. You should also label flags in `TCP` packets.
 
 and the line is in the format of, if the sender is the server and receiver is client:
 
@@ -70,10 +71,13 @@ Besides each packet, you are also requested to save these properties into the `t
 Server : /*Server. IP*/:/*Serevr. Port*/ <-> Client : /*Client IP*/:/*Client Port*/
 ```
 
-- (10pts) Handle IPv6 packets. You should implement your packet analyzer to handle `TCP` carried by `IPv6` packets. After implementation, your pkt analyzer should be able to read out `IPv6` packets and analyze `TCP` streams containing `IPv6` packets.
-- (20pts) Decode `HTTP/1.1` stream.
+#### IPv6 (10pts) 
 
-The first line of the file is
+Handle IPv6 packets. You should implement your packet analyzer to handle `TCP` carried by `IPv6` packets. After implementation, your pkt analyzer should be able to read out `IPv6` packets and analyze `TCP` streams containing `IPv6` packets.
+
+#### HTTP Analyzer(20pts) 
+
+Decode `HTTP/1.1` stream. The first line of the file is
 
 ```
 Server : /*Server. IP*/:/*Serevr. Port*/ <-> Client : /*Client IP*/:/*Client Port*/
@@ -89,7 +93,7 @@ METHOD URL PROTOCAL_VERSION
 PROTOCAL_VERSION STATUS_CODE STATUS
 ```
 
-You only need to implement `HTTP/1.1`. You do not need to implement `HTTPS`. You are guarenteed that when testing this part, a `.pcap` that contains only `HTTP` packets will be provided. For those packets which does not have a HTTP header, you should use
+You only need to implement `HTTP/1.1`. You do not need to implement `HTTPS`. You are guarenteed that when testing this part, a `.pcap` that contains only `HTTP` packets will be provided. For those packets which does not have a HTTP header but does belong to  a HTTP stream, you should use
 
 ```
 ..NO HEADER..
@@ -101,13 +105,38 @@ to indicate.
 
 ### Task 2
 
-(20pts) Use the packet analyzer programmed by you to demonstrate some behaviors of TCP stream, including:
+#### TCP Behaviour Demonstration (20pts)
+
+Use the packet analyzer programmed by you to demonstrate some behaviors of TCP stream, including:
 
 1. RENO-TCP Fast Recovery
-2. Sliding of Congestion Window(how to check congestion windows from packets?)
+2. Sliding of Congestion Window
 3. Slow Start
+4. So on.
 
-and so on. The demonstration methods should include at least one figure automatically plotted by python. You are not allowed to submit a figure plotted by hand-making data. You have to **specificate** the code clip you used to plot. You must clearly indicate which part of the figure tells which TCP behavior. **Note** that you do not need to demonstrate all behaviours.
+The demonstration methods are suggested to include at least one figure automatically plotted by `matplotlib` or other plotting libraries. Note that you are **not allowed** to submit a figure plotted by **hand-making data**, like plotted by `excel` or any other seemly tools. You have to **specificate** the code clip you used to plot. You must **clearly indicate** which part of the figure tells which TCP behavior. **Note** that you do not need to demonstrate all behaviours, only one or two of them are sufficient. Also, spending too much time on making your plots fancy may not help you gain more grades. A simple example is provided like
+
+![image-20230417180126723](README.assets/image-20230417180126723-1725688.png)
+
+The code to plot this figure is (suppose you have stored ACK numbers in list `ackss`)
+
+```python
+import matplotlib.pyplot as plt
+
+# Create x-axis values (just the index of each ACK)
+x_values = list(range(len(ackss)))
+
+# Plot the line chart
+plt.plot(x_values, ackss)
+
+# Add x and y labels and a title
+plt.xlabel('Packet Number')
+plt.ylabel('ACK Number')
+plt.title('ACK Numbers vs Packet Numbers')
+
+# Show the plot
+plt.show()
+```
 
 ## Grading Rules
 
@@ -117,7 +146,7 @@ For Task 1, a script file will be provided. To use this script, you have to use 
 python *your_sid*.GRADER
 ```
 
-to run grader script. Make sure to submit the screenshot of it in your report. Do not try to modify answer txt. BIG BROTHER IS WATCHING YOU.
+to run grader script. Make sure to **submit the screenshot **of it in your report, or your grade for this part may be lost. Do not try to modify answer txt. BIG BROTHER IS WATCHING YOU.
 
 For Task 2, you have to demonstrate behaviors of TCP streams, using a code clip to plot arguements of a `TCP` packet. You must clearly indicate which behavior is presented, explain reasons and give your code to do plotting.
 
