@@ -1,0 +1,6 @@
+GET /ssr/xhtml/css/pic_style.css HTTP/1.1
+HTTP/1.1 200 OK
+GET /ssr/xhtml/js/ss.index HTTP/1.1
+HTTP/1.1 200 OK
+GET /ssr/xhtml/js/jac.js HTTP/1.1
+..NO HEADER..

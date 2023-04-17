@@ -1,0 +1,6 @@
+Server : 14.117.43.13:443 <-> Client : 11.28.187.144:1433 
+Client -> Server Num: 1, SEQ: 0, ACK: 0 S
+Server -> Client Num: 2, SEQ: 0, ACK: 1 SA
+Client -> Server Num: 3, SEQ: 1, ACK: 1 A
+Client -> Server Num: 4, SEQ: 1, ACK: 1 PA
+Server -> Client Num: 5, SEQ: 1, ACK: 181 A
