@@ -2,13 +2,40 @@
 
 ## Introduction
 
+## Environment Setup
+
+In this assignment, you are suggested to use `Python 3.11`, as we wil test your code in this environment. And you should install few libraries. With anaconda, you can do this by this command in shell
+
+```zsh
+conda create -y -n PA2 python=3.11 && conda activate PA2 && pip install -r requirements.txt
+```
+
+**MAKE SURE** that when running this command, the `PWD` must contain all files needed by test. To check this, run command
+
+```zsh
+ls
+```
+
+and make sure the output countains these files:
+
+```
+RENAME_TO_SID.GRADER
+pkt_analyzer.py
+TCP_PKTS.pcap
+HTTP_.pcap
+PACKET_INFO.txt
+requirements.txt
+```
+
+Otherwise you can manually install each library by `pip`.
+
 ## Requirements
 
 ### Task 1
 
 In this task, you should implement a simple TCP packet analyzer, which can be used to do:
 
-- (5pts) 
+- (5pts)
 
   Extract all TCP connections in a given `pcap` file, print them and save them into a `txt` file in the format of
 
@@ -18,10 +45,10 @@ In this task, you should implement a simple TCP packet analyzer, which can be us
 
 Note that you only need to implement `IPv4/TCP` in this part. Make sure to output connection in time order. If you use the code skeleton, it should be easy to do.
 
-- (45pts) 
-  1. Tell which packet in the `pcap` file belongs to which TCP stream, save them into a `txt` file, each packet occupied each line. You should tell the number sequence of the packet. You should also tell which packet belongs to the client (sent by the client), and which belongs to the server. 
-  2. And you should calculate relative `ACK` and `SEQ` nums, correctly. You must have learnt the definitions of relative `ACK` and `SEQ`, so detailed information about them are omitted for brevity. 
-  3. You should also label flags in `TCP` packets. 
+- (45pts)
+  1. Tell which packet in the `pcap` file belongs to which TCP stream, save them into a `txt` file, each packet occupied each line. You should tell the number sequence of the packet. You should also tell which packet belongs to the client (sent by the client), and which belongs to the server.
+  2. And you should calculate relative `ACK` and `SEQ` nums, correctly. You must have learnt the definitions of relative `ACK` and `SEQ`, so detailed information about them are omitted for brevity.
+  3. You should also label flags in `TCP` packets.
 
 and the line is in the format of, if the sender is the server and receiver is client:
 
@@ -60,13 +87,13 @@ METHOD URL PROTOCAL_VERSION
 PROTOCAL_VERSION STATUS_CODE STATUS
 ```
 
-You only need to implement `HTTP/1.1`. You do not need to implement `HTTPS`. You are guarenteed that when testing this part, a `.pcap` that contains only `HTTP` packets will be provided. For those packets which does not have a HTTP header, you should use 
+You only need to implement `HTTP/1.1`. You do not need to implement `HTTPS`. You are guarenteed that when testing this part, a `.pcap` that contains only `HTTP` packets will be provided. For those packets which does not have a HTTP header, you should use
 
 ```
 ..NO HEADER..
 ```
 
-to indicate. 
+to indicate.
 
 **There are three example txt files to demonstrate correct format of output of your program.** If you are confused, carefully check them to make sure you have understand the idea.
 
@@ -82,30 +109,7 @@ and so on. The demonstration methods should include at least one figure automati
 
 ## Grading Rules
 
-For Task 1, a script file will be provided. To use this script, you have to use `Python 3.11` environment. With anaconda, you can do this by this command in shell
-
-```zsh
-conda create -y -n PA2 python=3.11 && conda activate PA2 && pip install -r requirements.txt
-```
-
-**MAKE SURE** that when running this command, the `PWD` must contain all files needed by test. To check this, run command
-
-```zsh
-ls
-```
-
-and make sure the output countains these files:
-
-```
-RENAME_TO_SID.GRADER
-pkt_analyzer.py
-TCP_PKTS.pcap
-HTTP_.pcap
-PACKET_INFO.txt
-requirements.txt
-```
-
-You can use
+For Task 1, a script file will be provided. To use this script, you have to use `Python 3.11` environment. You can use
 
 ```zsh
 python *your_sid*.GRADER
@@ -131,7 +135,7 @@ def packet_info(pcap_file, save_file):
             f.write("{}:{} -> {}:{}\n".format(packet['IP'].src, packet['TCP'].sport, packet['IP'].dst,packet['TCP'].dport))
 ```
 
-You can simply use `packet['TCP']` to access the `TCP` layer of the packet. 
+You can simply use `packet['TCP']` to access the `TCP` layer of the packet.
 
 ## Tips
 
@@ -141,4 +145,3 @@ You can simply use `packet['TCP']` to access the `TCP` layer of the packet.
 4. If you are confused, you can try `breakpoint` and use `debugger` to observe members and status of your code, as well as `packet` object. Or you can turn to official documents of course.
 5. Note the difference of stream and connection. In this assignment you may assume that streams are specified by `(server address, client address, server port, client port)` and connections are specified by `(dst address, src address, dst port, src port)`. This may be slightly different with precise definition of stream and connection in textbook.
 6. You may encounter a lot of exceptions, like `KeyError`, `UnicodeDecodeError`  and so no. Try to use `try..except` block.
-
