@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The ability to analyze TCP traffic is a crucial skill in computer networking, as it allows us to understand how applications communicate over the network, identify performance issues and security threats, and optimize network configurations. The TCP stream analyzer that we will be introducing in this article is a key tool for achieving these objectives, as it will enable you to extract important information from TCP packets, such as sequence and acknowledgement numbers, payload data, and statistics. By the end of this assignment, you should have a solid understanding of how TCP stream analysis works. In this time of assigment, you should implement a TCP stream analyzer using `Python` and `Scapy`.
+Analyzing TCP traffic is a crucial skill in computer networking, as it allows us to understand how applications communicate over the network, identify performance issues and security threats, and optimize network configurations. The TCP stream analyzer that we will be introducing in this assignment is a key tool for achieving these objectives, as it will enable you to extract important information from TCP packets, such as sequence and acknowledgement numbers, payload data, and statistics. By the end of this assignment, you should have a solid understanding of how TCP stream analysis works. In this assignment, you should implement a TCP stream analyzer using `Python` and the `scapy` library. **A GitHub page** of this assignment is referred, as [here](https://github.com/ensomnia16/CS305-23S-Assignment2). We will update document and code in this page, and you can also raise your issues, questions and any confusion about this assignment in this page. Issues raised in other ways will be responsed in a secondary priority.
 
 ## Environment Setup
 
@@ -12,13 +12,13 @@ In this assignment, you are suggested to use `Python 3.11`, as we will test your
 conda create -y -n PA2 python=3.11 && conda activate PA2 && pip install -r requirements.txt
 ```
 
-**MAKE SURE** that when running this command, the `PWD` must contain all files needed by test. To check this, run command
+**MAKE SURE** that when running this command, the `PWD` must contain all the files needed by test. To check this, run command
 
 ```zsh
 ls
 ```
 
-and make sure the output countains these files:
+and make sure the output contains these files:
 
 ```
 RENAME_TO_SID.GRADER
@@ -29,29 +29,43 @@ PACKET_INFO.txt
 requirements.txt
 ```
 
-Otherwise you can manually install each library by `pip`. Required libraries are listed in `requirements.txt`.
+You can also manually install each library by `pip`. Required libraries are listed in `requirements.txt`. 
+
+Remember these files are essential for grading scripts and do not modify them or rename them. 
+
+We provide a skeleton file called `pkt_analyzer.py`. Please implement your code in this file, and do not modify the functions and the corresponding parameter lists.
 
 ## Requirements
 
-### Task 1
+### Task 1 (85 pts)
 
-In this task, you should implement a simple TCP packet analyzer, which can be used to do:
+In this task, you need to implement a simple TCP packet analyzer, which can be used to do:
 
-#### TCP Connection Analyzer (5pts)
+#### TCP Connection Analyzer (10 pts)
 
-Extract all TCP connections in a given `pcap` file, print them and save them into a `txt` file in the format of
+Extract all TCP connections in a `pcap` file, print them and save them into a `txt` file in the format of
 
 ```
 /*Src. IP*/:/*Src. Port*/ -> /*Dst. IP*/:/*Dst. Port*/
 ```
 
-Note that you only need to implement `IPv4/TCP` in this part. Make sure to output connection in time order. If you use the code skeleton, it should be easy to do.
+Note that you only need to implement `IPv4/TCP` in this part , i.e., you do not need to handle `IPv6` packets in this part. Make sure to output connection in time order. If you use the code skeleton, it should be easy to do.
 
-#### TCP Stream Analyzer (45pts)
+**Tips for this part**
 
-1. Tell which packet in the `pcap` file belongs to which TCP stream, save them into a `txt` file, each packet occupied each line. You should tell the number sequence of the packet. You should also tell which packet belongs to the client (sent by the client), and which belongs to the server.
+- Note the difference of stream and connection. In this assignment you may assume that streams are specified by `(server address, client address, server port, client port)` and connections are specified by `(dst address, src address, dst port, src port)`. This may be slightly different with precise definition of stream and connection in textbook.
+- There are multiple packets in single conncetion. 
+- If you are confused about the output format of `txt` file, turn to `PACKET_INFO.txt`.
+
+#### TCP Stream Analyzer (45 pts)
+
+According to [RFC9293](https://www.ietf.org/rfc/rfc9293.html), there are multiple fields in headers of TCP:
+
+![image-20230421164551790](README.assets/image-20230421164551790.png)
+
+1. Tell which packet in the `pcap` file belongs to which TCP stream, save them into a `txt` file. You should tell the sequence number of the packet. You should also tell which packet belongs to the client (sent by the client), and which belongs to the server. 
 2. And you should calculate relative `ACK` and `SEQ` nums, correctly. You must have learnt the definitions of relative `ACK` and `SEQ`, so detailed information about them are omitted for brevity.
-3. You should also label flags in `TCP` packets.
+3. You should also label flags(control bits: `ACK`, `SYN`, `FIN`, etc.) in `TCP` packets. 
 
 and the line is in the format of, if the sender is the server and receiver is client:
 
@@ -71,11 +85,22 @@ Besides each packet, you are also requested to save these properties into the `t
 Server : /*Server. IP*/:/*Serevr. Port*/ <-> Client : /*Client IP*/:/*Client Port*/
 ```
 
-#### IPv6 (10pts) 
+**Tips for this part**
 
-Handle IPv6 packets. You should implement your packet analyzer to handle `TCP` carried by `IPv6` packets. After implementation, your pkt analyzer should be able to read out `IPv6` packets and analyze `TCP` streams containing `IPv6` packets.
+- Client is the initiator of the `TCP` connection, i.e., the sender of the first packet of a `TCP` stream.
+- Note the difference between connections and streams for this assignment.
+- If you are confused about the output format of `txt` file, turn to `TCP_examples.txt`.
 
-#### HTTP Analyzer(20pts) 
+#### IPv6 (10 pts)
+
+Handle IPv6 packets. You should implement your packet analyzer to handle `TCP` carried by `IPv6` packets. After implementation, your pkt analyzer should be able to read out `IPv6` packets and analyze `TCP` streams containing `IPv6` packets. The output format is the same as that in **TCP Stream Analyzer** part.
+
+**Tips for this part**
+
+- For `IPv4` packet, you can simply use `packet['IP']` to extract. What about `IPv6` packet?
+- If you are confused about the output format of `txt` file, turn to `IPv6_examples.txt`.
+
+#### HTTP Analyzer(20 pts)
 
 Decode `HTTP/1.1` stream. The first line of the file is
 
@@ -93,30 +118,40 @@ METHOD URL PROTOCAL_VERSION
 PROTOCAL_VERSION STATUS_CODE STATUS
 ```
 
-You only need to implement `HTTP/1.1`. You do not need to implement `HTTPS`. You are guarenteed that when testing this part, a `.pcap` that contains only `HTTP` packets will be provided. For those packets which does not have a HTTP header but does belong to  a HTTP stream, you should use
+You only need to implement `HTTP/1.1`. You do not need to implement `HTTPS`. You are guaranteed that when testing this part, a `.pcap` that contains only `HTTP` packets will be provided. For those packets which does not have an HTTP header but does belong to an HTTP stream, you should use
 
 ```
 ..NO HEADER..
 ```
 
-to indicate.
+to indicate. Those packets without headers may be due to the segmentation of `TCP`, which segment one complete `HTTP` packet into multiple `TCP` packets. 
 
-**There are three example txt files to demonstrate correct format of output of your program.** If you are confused, carefully check them to make sure you have understand the idea.
+**Tips for this part**
+
+- For application layer, i.e., the payload of `TCP` layer, you should note that directly use `packet['HTTP']` may not be a proper way since `scapy` might be unable to tell the protocol of the payload of `TCP` packets. Use `packet['TCP'].payload` instead.
+- If you are confused about the fields and members of `packet` object in `scapy`, you can try `breakpoint` and use `debugger` to observe members and status of your code, as well as `packet` object. Or you can turn to official documents of course.
+- Exceptions may occur if encountered `HTTP` packets without `HTTP Header`. Handle it using `try...catch` block.
+- If you are confused about the output format of `txt` file, turn to `HTTP_examples.txt`.
+
+**There are three example `txt` files to demonstrate correct format of output of your program.** If you are confused, carefully check them to make sure you understand the idea. They are stored in
+
+`Examples` folder.
+
+
 
 ### Task 2
 
-#### TCP Behaviour Demonstration (20pts)
+#### TCP Behaviour Demonstration (15 pts)
 
 Use the packet analyzer programmed by you to demonstrate some behaviors of TCP stream, including:
 
 1. RENO-TCP Fast Recovery
-2. Sliding of Congestion Window
 3. Slow Start
-4. So on.
+4. Round Trip Time
 
-The demonstration methods are suggested to include at least one figure automatically plotted by `matplotlib` or other plotting libraries. Note that you are **not allowed** to submit a figure plotted by **hand-making data**, like plotted by `excel` or any other alike tools. You have to **specificate**(submit) the code clip you used to plot in your report. You must **clearly indicate** which part of the figure tells which TCP behavior. **Note** that you do not need to demonstrate all behaviours, one or two of them are sufficient. Also, spending too much time on making your plots fancy may not help you gain more grades. A simple example is provided like
+The demonstration methods must include at least one figure automatically plotted by `matplotlib` or other plotting libraries. Note that you are **not allowed** to submit a figure plotted by **hand-making data**, like plotted by `excel` or any other alike tools. You have to **specificate** (submit) the code clip you used to plot figures in your report. You must **clearly indicate** which part of the figure tells which TCP behavior and explain reasons, otherwise you will **lose at least 10pts for this part**. Note that you do not need to demonstrate all behaviours, any one of them is sufficient. Also, spending too much time on making your plots fancy does not help you gain more grades. A simple example figure tells the relationship between ACK Numbers and Packet Numbers for a TCP stream is provided as follows
 
-![image-20230417180126723](README.assets/image-20230417180126723-1725688.png)
+<img src="README.assets/image-20230417180126723-1725688.png" alt="image-20230417180126723" style="zoom:40%;" />
 
 The code to plot this figure is (suppose you have stored ACK numbers in list `ackss`)
 
@@ -138,6 +173,8 @@ plt.title('ACK Numbers vs Packet Numbers')
 plt.show()
 ```
 
+Note that this figure is just for example, you may find more kinds plot to demonstrate besides ACKnum v. PacketNum figure(i.e., the example figure).
+
 ## Grading Rules
 
 For Task 1, a script file will be provided. To use this script, you have to use `Python 3.11` environment. You can use
@@ -146,9 +183,9 @@ For Task 1, a script file will be provided. To use this script, you have to use 
 python *your_sid*.GRADER
 ```
 
-to run grader script. Make sure to **submit the screenshot **of it in your report, or your grade for this part may be lost. Do not try to modify answer txt. BIG BROTHER IS WATCHING YOU.
+to run grader script. Make sure to **submit the screenshot** of it in your report, or your grade for this part may be lost. Do not try to modify answer txt. BIG BROTHER IS WATCHING YOU. Do not forget to rename the filename of your script to your student ID.
 
-For Task 2, you have to demonstrate behaviors of TCP streams, using a code clip to plot arguements of a `TCP` packet. You must clearly indicate which behavior is presented, explain reasons and give your code to do plotting.
+For Task 2, you have to demonstrate behaviors of TCP streams, using a code clip to plot arguments of a `TCP` packet. You must **clearly indicate which behavior is presented**, **explain reasons** and give your code to do plotting.
 
 ## Step by step Tutorial
 
@@ -167,12 +204,3 @@ def packet_info(pcap_file, save_file):
 ```
 
 You can simply use `packet['TCP']` to access the `TCP` layer of the packet.
-
-## Tips
-
-1. Carefully handle `LAYER_NAME`.
-2. Carefully handle packets of different protocols, since different protocols have different members.
-3. For application layer, i.e., the payload of `TCP` layer, you should note that directly use `packet['HTTP']` may not be a proper way. Use `packet['TCP'].payload` instead.
-4. If you are confused, you can try `breakpoint` and use `debugger` to observe members and status of your code, as well as `packet` object. Or you can turn to official documents of course.
-5. Note the difference of stream and connection. In this assignment you may assume that streams are specified by `(server address, client address, server port, client port)` and connections are specified by `(dst address, src address, dst port, src port)`. This may be slightly different with precise definition of stream and connection in textbook.
-6. You may encounter a lot of exceptions, like `KeyError`, `UnicodeDecodeError`  and so no. Try to use `try..except` block.
