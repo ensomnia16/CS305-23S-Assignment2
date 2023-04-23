@@ -4,9 +4,13 @@
 
 **April. 23 10:00**: The version released in `Sakai`
 
-**April. 23 16:00**: 
+**April. 23 16:00**:
 
 1. Fixed some typos in document
+
+**April. 23 22:00:**
+
+1. Fixed an error of calculation in grader
 
 ## Introduction
 
