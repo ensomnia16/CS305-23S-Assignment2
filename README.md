@@ -2,13 +2,22 @@
 
 ## Changelog
 
-**April. 23** The version released in `Sakai`
+**April. 23** 
+
+   The version released in `Sakai`
 
 **April. 24**
 
-1. Fixed some descriptions on *HTTP* *Analyzer* Part, add descriptions on submission format.
-2. Fixed some typos in document
-3. Fixed an error of calculation in grader
+1. Fixed some descriptions on *HTTP* *Analyzer* Part
+2. Descriptions added on submission format.
+3. Fixed some typos in document
+4. Fixed an error of calculation in grader
+
+**April. 25**
+
+1. References on `scapy` added, thanks to [Yan-Ice](https://github.com/Yan-ice)
+2. Clarified a sentence that is easily misunderstood.
+3. Clarified standard on additional libraries.
 
 ## Introduction
 
@@ -22,6 +31,12 @@ You need to submit a report in PDF, and your code implementation of `pkt_analyze
 2. Anything you want to tell us about Task 2, at least one figure as well as your explanation.
 
 Do not submit your files in one compress file. Submit them separately in Sakai. **We will not accept any late submission, and score reduction might be assumed if not submitted in the given way.**
+
+Thanks to [Yan-Ice](https://github.com/Yan-ice), here are some references for `scapy`: [Official website](https://scapy.net/), [Documentation](https://scapy.readthedocs.io/en/latest/), [Github Repo](https://github.com/secdev/scapy)
+
+You can directly use the `pcap` files we provided, although you are suggested to catch your own `pcap` files and test your code with it.
+
+You are **not allowed** to use additional libraries, apart from those in `requirements.txt` and `scapy` or plotting-related libraries like `matplotlib`, `numpy` , `pandas`, etc.
 
 ## Environment Setup
 
