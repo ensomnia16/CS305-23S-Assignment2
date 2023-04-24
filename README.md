@@ -1,20 +1,14 @@
 # 2023 Spring CS305 PA2: Packet Analyzer
 
-## Change Logs
+## Changelog
 
-**April. 23 10:00**: The version released in `Sakai`
+**April. 23** The version released in `Sakai`
 
-**April. 23 16:00**:
+**April. 24**
 
-1. Fixed some typos in document
-
-**April. 23 22:00:**
-
-1. Fixed an error of calculation in grader
-
-**April. 24:**
-
-1. Fixed some descriptions on *HTTP* *Analyzer* Part
+1. Fixed some descriptions on *HTTP* *Analyzer* Part, add descriptions on submission format.
+2. Fixed some typos in document
+3. Fixed an error of calculation in grader
 
 ## Introduction
 
@@ -23,6 +17,7 @@ Analyzing TCP traffic is a crucial skill in computer networking, as it allows us
 **Submit:**
 
 You need to submit a report in PDF, and your code implementation of `pkt_analyzer.py`. The report should contain at least the following parts:
+
 1. Screenshot of the grader. The screenshot should contain your `TOKEN`, and your scores.
 2. Anything you want to tell us about Task 2, at least one figure as well as your explanation.
 
