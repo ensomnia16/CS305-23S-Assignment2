@@ -12,9 +12,21 @@
 
 1. Fixed an error of calculation in grader
 
+**April. 24:**
+
+1. Fixed some descriptions on *HTTP* *Analyzer* Part
+
 ## Introduction
 
 Analyzing TCP traffic is a crucial skill in computer networking, as it allows us to understand how applications communicate over the network, identify performance issues and security threats, and optimize network configurations. The TCP stream analyzer that we will be introducing in this assignment is a key tool for achieving these objectives, as it will enable you to extract important information from TCP packets, such as sequence and acknowledgement numbers, payload data, and performance statistics. By the end of this assignment, you should have a solid understanding of how TCP stream analysis works. In this assignment, you should implement a TCP stream analyzer using `Python` and the `scapy` library. **A GitHub repository** of this assignment is referred, as [here](https://github.com/ensomnia16/CS305-23S-Assignment2). **We will update document and code in the GitHub page (please keep track of this page)**, and you can also raise your issues, questions, and any confusion about this assignment in this page. Issues raised in other ways will be responded in a secondary priority.
+
+**Submit:**
+
+You need to submit a report in PDF, and your code implementation of `pkt_analyzer.py`. The report should contain at least the following parts:
+1. Screenshot of the grader. The screenshot should contain your `TOKEN`, and your scores.
+2. Anything you want to tell us about Task 2, at least one figure as well as your explanation.
+
+Do not submit your files in one compress file. Submit them separately in Sakai. **We will not accept any late submission, and score reduction might be assumed if not submitted in the given way.**
 
 ## Environment Setup
 
@@ -114,13 +126,7 @@ Handle IPv6 packets. You should implement your packet analyzer to handle `TCP` c
 
 #### HTTP Analyzer (20 pts)
 
-Decode `HTTP/1.1` stream. The first line of the file is
-
-```
-Server : /*Server. IP*/:/*Serevr. Port*/ <-> Client : /*Client IP*/:/*Client Port*/
-```
-
-Please decode the HTTP in the format of
+Decode `HTTP/1.1` stream. Please decode the HTTP in the format of
 
 ```
 METHOD URL PROTOCAL_VERSION
