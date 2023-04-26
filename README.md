@@ -16,8 +16,13 @@
 **April. 25**
 
 1. References on `scapy` added, thanks to [Yan-Ice](https://github.com/Yan-ice)
-2. Clarified a sentence that is easily misunderstood.
-3. Clarified standard on additional libraries.
+2. Clarified a sentence that is easily misunderstood
+3. Clarified standard on additional libraries
+
+**April. 26**
+
+1. Clarified a sentence on format of output to correspond to example files
+1. Fixed some typos
 
 ## Introduction
 
@@ -104,13 +109,13 @@ According to [RFC9293](https://www.ietf.org/rfc/rfc9293.html), there are multipl
 and the line is in the format of, if the sender is the server and receiver is client:
 
 ```
-Server -> Client; Num: /*Packet Number*/ SEQ: /*SEQ NUM*/ ACK: /*ACK NUM*/ /*FLAGS*/
+Server -> Client Num: /*Packet Number*/, SEQ: /*SEQ NUM*/, ACK: /*ACK NUM*/ /*FLAGS*/
 ```
 
 otherwise if the sender is the client and receiver is server:
 
 ```
-Client -> Server; Num: /*Packet Number*/ SEQ: /*SEQ NUM*/ ACK: /*ACK NUM*/ /*FLAGS*/
+Client -> Server Num: /*Packet Number*/, SEQ: /*SEQ NUM*/, ACK: /*ACK NUM*/ /*FLAGS*/
 ```
 
 Besides each packet, you are also requested to save these properties into the `txt` file, in the first line of the file, in the format of
@@ -158,7 +163,7 @@ to indicate. Those packets without headers may be due to the segmentation of `TC
 
 - For application layer, i.e., the payload of `TCP` layer, you should note that directly using `packet['HTTP']` may not be a proper way since `scapy` is unable to tell the protocol of the payload of `TCP` packets. Use `packet['TCP'].payload` instead.
 - If you are confused about the fields and members of `packet` object in `scapy`, you can try `breakpoint` and use `debugger` to observe members and status of your code, as well as `packet` object. Or you can turn to official documents for references.
-- Exceptions may occur if encountered `HTTP` packets without `HTTP Header`. Handle it using `try...catch` block.
+- Exceptions may occur if encountered `HTTP` packets without `HTTP Header`. Handle it using `try...except` block.
 - If you are confused about the output format of `txt` file, turn to `HTTP_examples.txt`.
 
 **There are three example `txt` files to demonstrate correct format of output of your program.** If you are confused, carefully check them to make sure you understand the idea. They are stored in `Examples` folder.
