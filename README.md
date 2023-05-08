@@ -24,6 +24,11 @@
 1. Clarified a sentence on format of output to correspond to example files
 1. Fixed some typos
 
+**May. 8**
+
+This assignment is finished and you all have done great work. Reference code and source code of grader, along with answer files is uploaded. This repo will be archieved.
+
+
 ## Introduction
 
 Analyzing TCP traffic is a crucial skill in computer networking, as it allows us to understand how applications communicate over the network, identify performance issues and security threats, and optimize network configurations. The TCP stream analyzer that we will be introducing in this assignment is a key tool for achieving these objectives, as it will enable you to extract important information from TCP packets, such as sequence and acknowledgement numbers, payload data, and performance statistics. By the end of this assignment, you should have a solid understanding of how TCP stream analysis works. In this assignment, you should implement a TCP stream analyzer using `Python` and the `scapy` library. **A GitHub repository** of this assignment is referred, as [here](https://github.com/ensomnia16/CS305-23S-Assignment2). **We will update document and code in the GitHub page (please keep track of this page)**, and you can also raise your issues, questions, and any confusion about this assignment in this page. Issues raised in other ways will be responded in a secondary priority.
