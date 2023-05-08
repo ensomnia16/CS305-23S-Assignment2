@@ -2,7 +2,7 @@
 
 ## Changelog
 
-**April. 23** 
+**April. 23**
 
    The version released in `Sakai`
 
@@ -22,12 +22,11 @@
 **April. 26**
 
 1. Clarified a sentence on format of output to correspond to example files
-1. Fixed some typos
+2. Fixed some typos
 
 **May. 8**
 
-This assignment is finished and you all have done great work. Reference code and source code of grader, along with answer files is uploaded. This repo will be archieved.
-
+This assignment is finished and you all have done great work. Reference code and source code of grader, along with answer files are uploaded. This repo will be archieved soon. Official grades will be judged as soon as possible.
 
 ## Introduction
 
